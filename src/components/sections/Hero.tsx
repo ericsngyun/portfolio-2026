@@ -1,54 +1,115 @@
-import Link from "next/link";
-import { ArrowDown, FileText } from "lucide-react";
-import { cn } from "@/lib/utils";
+"use client";
+
+import { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useTransform } from "motion/react";
+import { VelocityMarquee } from "@/components/effects/VelocityMarquee";
+import { AnimatedLines } from "@/components/ui/SplitText";
+import { RevealOnScroll } from "@/components/ui/AnimatedSection";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export function Hero() {
+  const containerRef = useRef<HTMLElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Scroll-linked effects
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const y = useTransform(scrollYProgress, [0, 0.5], [0, 100]);
+
   return (
-    <section className="flex min-h-dvh flex-col items-center justify-center px-6 py-24">
-      <div className="mx-auto max-w-3xl text-center">
-        {/* Name */}
-        <h1 className="text-balance text-5xl font-bold tracking-tight text-zinc-900 sm:text-6xl md:text-7xl dark:text-zinc-50">
-          Eric Yun
-        </h1>
-
-        {/* Role */}
-        <p className="mt-4 text-pretty text-xl text-zinc-600 sm:text-2xl dark:text-zinc-400">
-          Full-Stack Engineer & Designer
-        </p>
-
-        {/* Tagline */}
-        <p className="mx-auto mt-6 max-w-xl text-pretty text-base leading-relaxed text-zinc-500 dark:text-zinc-400">
-          I build products from concept to deployment—tournament platforms,
-          AI-powered tools, and polished web experiences. Focused on clean
-          architecture, performant systems, and thoughtful design.
-        </p>
-
-        {/* CTAs */}
-        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <Link
-            href="#projects"
-            className={cn(
-              "inline-flex h-12 items-center justify-center gap-2 rounded-full bg-zinc-900 px-6 text-sm font-medium text-white transition-colors duration-200 ease-out hover:bg-zinc-800 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 dark:focus-visible:ring-zinc-300"
-            )}
-          >
-            View Projects
-            <ArrowDown className="size-4" />
-          </Link>
-
-          <a
-            href="/resume.pdf"
-            download
-            className={cn(
-              "inline-flex h-12 items-center justify-center gap-2 rounded-full border border-zinc-200 bg-white px-6 text-sm font-medium text-zinc-900 transition-colors duration-200 ease-out hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-800",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 dark:focus-visible:ring-zinc-300"
-            )}
-          >
-            <FileText className="size-4" />
-            Download Resume
-          </a>
-        </div>
+    <section
+      ref={containerRef}
+      className="relative min-h-dvh flex flex-col justify-end pb-16 lg:pb-24 overflow-hidden"
+    >
+      {/* Giant velocity marquee - main visual anchor */}
+      <div className="absolute inset-0 flex items-center pointer-events-none overflow-hidden">
+        {mounted && (
+          <VelocityMarquee
+            text="DESIGN ENGINEER"
+            baseSpeed={30}
+            maxSpeedMultiplier={8}
+            maxSkew={12}
+            direction="left"
+            className="w-full"
+          />
+        )}
       </div>
+
+      {/* Main content */}
+      <motion.div
+        style={{
+          opacity: prefersReducedMotion ? 1 : opacity,
+          y: prefersReducedMotion ? 0 : y,
+        }}
+        className="container-wide relative z-10"
+      >
+        {/* Name - Large editorial treatment */}
+        <div className="mb-8">
+          <RevealOnScroll delay={0}>
+            <span className="text-label mb-4 block">Portfolio 2025</span>
+          </RevealOnScroll>
+
+          <AnimatedLines
+            lines={["Eric Yun"]}
+            type="slideUp"
+            as="h1"
+            className="mb-6"
+            lineClassName="text-display font-[family-name:var(--font-syne)] font-extrabold tracking-[-0.04em] leading-[0.85] text-[var(--color-text-primary)]"
+            staggerDelay={0.1}
+            delay={0.2}
+          />
+        </div>
+
+        {/* Intro text */}
+        <RevealOnScroll delay={0.4}>
+          <p className="text-[clamp(1.125rem,2vw,1.5rem)] text-[var(--color-text-secondary)] leading-[1.5] max-w-xl">
+            Crafting tournament platforms, AI-powered tools, and premium digital
+            experiences with precision and care.
+          </p>
+        </RevealOnScroll>
+
+        {/* Minimal info line */}
+        <RevealOnScroll delay={0.6}>
+          <div className="flex items-center gap-6 mt-16 pt-6 border-t border-[var(--color-border)]">
+            <span className="text-sm text-[var(--color-text-muted)]">
+              Los Angeles, CA
+            </span>
+            <span className="w-1 h-1 rounded-full bg-[var(--color-text-muted)]" />
+            <span className="text-sm text-[var(--color-text-muted)]">
+              Available for projects
+            </span>
+          </div>
+        </RevealOnScroll>
+      </motion.div>
+
+      {/* Scroll indicator - Minimal */}
+      {!prefersReducedMotion && mounted && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5, duration: 0.6 }}
+          className="absolute bottom-8 right-8 hidden lg:flex flex-col items-center gap-2"
+        >
+          <motion.div
+            animate={{ y: [0, 6, 0] }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="w-px h-12 bg-gradient-to-b from-[var(--color-text-muted)] to-transparent"
+          />
+        </motion.div>
+      )}
     </section>
   );
 }
