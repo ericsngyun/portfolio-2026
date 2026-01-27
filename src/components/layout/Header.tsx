@@ -1,56 +1,125 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/utils";
+import { useScrollDirection } from "@/hooks/useSmoothScroll";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { MagneticLink } from "@/components/ui/MagneticButton";
 
 const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/#projects", label: "Projects" },
+  { href: "/#work", label: "Work" },
+  { href: "/#about", label: "About" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export function Header() {
   const pathname = usePathname();
+  const { direction, isAtTop } = useScrollDirection();
+  const prefersReducedMotion = useReducedMotion();
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    if (isAtTop) {
+      setIsVisible(true);
+    } else if (direction === "down") {
+      setIsVisible(false);
+    } else if (direction === "up") {
+      setIsVisible(true);
+    }
+  }, [direction, isAtTop]);
+
+  const headerVariants = {
+    visible: { y: 0, opacity: 1 },
+    hidden: { y: -100, opacity: 0 },
+  };
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-50 border-b border-zinc-200/50 bg-white/80 backdrop-blur-sm dark:border-zinc-800/50 dark:bg-zinc-950/80">
-      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-        {/* Logo */}
-        <Link
-          href="/"
-          className="text-lg font-semibold text-zinc-900 dark:text-zinc-50"
-        >
-          EY
-        </Link>
+    <AnimatePresence>
+      <motion.header
+        initial="visible"
+        animate={isVisible ? "visible" : "hidden"}
+        variants={prefersReducedMotion ? undefined : headerVariants}
+        transition={{
+          duration: 0.3,
+          ease: [0.25, 0.1, 0.25, 1],
+        }}
+        className={cn(
+          "fixed left-0 right-0 top-0 z-[var(--z-fixed)]",
+          "transition-all duration-300",
+          isAtTop
+            ? "bg-transparent"
+            : "bg-[var(--color-bg)]/80 backdrop-blur-md border-b border-[var(--color-border)]"
+        )}
+      >
+        <nav className="container-wide flex h-20 items-center justify-between">
+          {/* Logo - Clean, no decorations */}
+          <MagneticLink href="/" distance={4} className="relative group">
+            <span className="text-sm font-[family-name:var(--font-syne)] font-semibold tracking-tight text-[var(--color-text-primary)]">
+              Eric Yun
+            </span>
+          </MagneticLink>
 
-        {/* Nav Links */}
-        <ul className="flex items-center gap-6">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
+          {/* Navigation - Minimal, no prefixes */}
+          <ul className="flex items-center gap-8">
+            {navLinks.map((link) => {
+              const isActive =
+                pathname === link.href ||
+                (link.href.includes("#") &&
+                  pathname === "/" &&
+                  link.href.startsWith("/#"));
+
+              return (
+                <li key={link.href}>
+                  <MagneticLink
+                    href={link.href}
+                    distance={3}
+                    className={cn(
+                      "relative text-sm font-medium transition-colors duration-200",
+                      isActive
+                        ? "text-[var(--color-text-primary)]"
+                        : "text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
+                    )}
+                  >
+                    {link.label}
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-indicator"
+                        className="absolute -bottom-1 left-0 right-0 h-px bg-[var(--color-text-primary)]"
+                        transition={{
+                          type: "spring",
+                          stiffness: 300,
+                          damping: 30,
+                        }}
+                      />
+                    )}
+                  </MagneticLink>
+                </li>
+              );
+            })}
+
+            {/* Resume link */}
+            <li>
+              <MagneticLink
+                href="/resume.pdf"
+                target="_blank"
+                distance={4}
                 className={cn(
-                  "text-sm transition-colors duration-200",
-                  pathname === link.href
-                    ? "text-zinc-900 dark:text-zinc-50"
-                    : "text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"
+                  "relative px-4 py-2 text-sm font-medium",
+                  "border border-[var(--color-border-strong)]",
+                  "text-[var(--color-text-primary)]",
+                  "transition-all duration-300",
+                  "hover:bg-[var(--color-text-primary)] hover:text-[var(--color-bg)]"
                 )}
               >
-                {link.label}
-              </Link>
+                Resume
+              </MagneticLink>
             </li>
-          ))}
-          <li>
-            <a
-              href="/resume.pdf"
-              download
-              className="text-sm text-zinc-500 transition-colors duration-200 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"
-            >
-              Resume
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </header>
+          </ul>
+        </nav>
+      </motion.header>
+    </AnimatePresence>
   );
 }
