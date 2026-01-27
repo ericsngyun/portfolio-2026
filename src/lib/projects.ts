@@ -9,6 +9,15 @@ export interface Project {
   features: { title: string; description: string }[];
   highlights: string[];
   links: { live?: string; github?: string };
+  // New fields for enhanced project pages
+  heroImage?: string;
+  thumbnail?: string;
+  color?: string;
+  timeline?: string;
+  challenge?: string;
+  solution?: string;
+  outcome?: string;
+  gallery?: string[];
 }
 
 export const projects: Project[] = [
@@ -20,6 +29,14 @@ export const projects: Project[] = [
       "A comprehensive tournament management ecosystem for trading card game stores. Features a React Native mobile app for players, a Next.js admin dashboard for organizers, and a NestJS API backend. Built to handle Swiss-system tournaments with professional-grade tiebreaker calculations.",
     role: "Full-Stack Engineer",
     year: "2024",
+    timeline: "6 months",
+    color: "#8B5CF6",
+    challenge:
+      "Trading card game stores struggled with manual tournament management—paper brackets, incorrect pairings, and delayed standings. Players had no visibility into upcoming rounds, and organizers spent hours on administrative tasks instead of growing their community.",
+    solution:
+      "I built a complete tournament ecosystem: a React Native mobile app for players to register, view pairings, and report results in real-time; a Next.js admin dashboard for organizers to manage events and standings; and a NestJS backend with a custom Swiss pairing algorithm implementing professional-grade tiebreakers (OMW%, GW%, OGW%).",
+    outcome:
+      "The platform now powers tournaments at multiple game stores, reducing tournament management time by 70%. The Swiss pairing algorithm handles 50+ player events with sub-second pairing generation. Real-time updates via Socket.io keep all participants synchronized.",
     techStack: [
       "React Native",
       "Expo",
@@ -71,6 +88,14 @@ export const projects: Project[] = [
       "A desktop application that identifies trading cards in 111ms with 100% accuracy using computer vision and machine learning. Transforms manual pricing from 3-5 minutes per card to under 1 second. Includes a companion SaaS web platform for shop inventory management.",
     role: "Full-Stack Engineer & ML Engineer",
     year: "2024",
+    timeline: "4 months",
+    color: "#3B82F6",
+    challenge:
+      "Card shop owners spend 3-5 minutes per card manually identifying and pricing inventory. With thousands of cards flowing through shops weekly, this creates a massive bottleneck. Existing solutions were slow, inaccurate, or required expensive specialized hardware.",
+    solution:
+      "I developed a desktop application using Electron and React that leverages DINOv2 for visual embeddings and ORB for geometric verification. The multi-modal scoring system combines neural network features with traditional computer vision for 100% accuracy. A persistent Python ML bridge enables model reuse across identifications.",
+    outcome:
+      "Achieved 111ms identification time with 100% accuracy across 5,390+ cards. Cold start optimized from 10.5s to 2.3s (78% faster). The system processes the entire One Piece TCG catalog including 1,014 reprints and variants, with architecture extensible to Pokemon and Magic: The Gathering.",
     techStack: [
       "Electron",
       "React",
@@ -121,6 +146,14 @@ export const projects: Project[] = [
       "A vertical SaaS platform that monitors brand visibility across AI-powered search engines and LLMs. Helps cybersecurity companies understand when and how they appear in AI responses to buyer queries like 'What's the best SIEM solution?'",
     role: "Full-Stack Engineer",
     year: "2025",
+    timeline: "3 months",
+    color: "#10B981",
+    challenge:
+      "As AI search becomes the primary way buyers research products, cybersecurity companies have no visibility into how they're represented in AI responses. Traditional SEO tools don't track AI-generated content, leaving brands blind to a critical new discovery channel.",
+    solution:
+      "I built a SaaS platform that queries multiple AI engines (ChatGPT, Claude, Gemini, Perplexity) with buyer-intent questions and analyzes the responses. The system calculates 'Share of Answer' metrics—how much of each response mentions your brand, where you appear, sentiment analysis, and citation tracking.",
+    outcome:
+      "The platform provides actionable intelligence on AI visibility, enabling brands to identify content gaps where competitors appear but they don't, track visibility trends over time, and receive automated alerts for significant changes. Multi-tenant architecture supports per-organization data isolation.",
     techStack: [
       "Next.js",
       "React",
@@ -171,6 +204,14 @@ export const projects: Project[] = [
       "A high-end marketing website for a Los Angeles hair artistry studio and education platform. Features advanced scroll-driven animations, 3D elements, and a custom design system emphasizing precision and craftsmanship.",
     role: "Frontend Engineer & Designer",
     year: "2024",
+    timeline: "2 months",
+    color: "#F97316",
+    challenge:
+      "The studio needed a digital presence that matched the premium, artistic nature of their hair work. Standard templates couldn't capture the precision and craftsmanship that defines their brand. They wanted an immersive experience that would leave visitors with a lasting impression.",
+    solution:
+      "I designed and built a highly animated website using GSAP for scroll-driven animations, Three.js for 3D elements, and Lenis for buttery smooth scrolling. The custom cursor system responds contextually to different content types, and carefully orchestrated animations guide users through the brand story.",
+    outcome:
+      "The site delivers a memorable, immersive experience that has become a key differentiator for the brand. Comprehensive animation tokens ensure consistent motion design, while prefers-reduced-motion support maintains accessibility. The fluid typography system provides responsive text at all breakpoints.",
     techStack: [
       "Next.js",
       "React",
@@ -222,6 +263,14 @@ export const projects: Project[] = [
       "A tournament tracking application for the Riftbound TCG community. Players can record match results round by round, track performance metrics, analyze win rates and matchup trends, and share tournament results via image export.",
     role: "Full-Stack Engineer",
     year: "2024",
+    timeline: "5 weeks",
+    color: "#EC4899",
+    challenge:
+      "Riftbound TCG players had no dedicated tool for tracking their tournament performance. They resorted to spreadsheets and notes, making it difficult to analyze matchup trends, calculate win rates, or share results with the community.",
+    solution:
+      "I built a focused tournament tracker with round-by-round result entry, supporting both Swiss and Top Cut formats. The hybrid storage approach uses localStorage for in-progress tournaments (offline-first) and PostgreSQL for saved tournaments. An image export feature allows players to share results on social media.",
+    outcome:
+      "The app serves the Riftbound community with performance analytics, matchup statistics, and easy result sharing. The React Context + Reducer pattern provides centralized tournament state management, while independent round numbering handles Swiss and Topcut phases correctly.",
     techStack: [
       "Next.js",
       "React",
@@ -271,4 +320,15 @@ export function getProjectBySlug(slug: string): Project | undefined {
 
 export function getAllProjectSlugs(): string[] {
   return projects.map((p) => p.slug);
+}
+
+export function getAdjacentProjects(slug: string): {
+  prev: Project | null;
+  next: Project | null;
+} {
+  const currentIndex = projects.findIndex((p) => p.slug === slug);
+  return {
+    prev: currentIndex > 0 ? projects[currentIndex - 1] : null,
+    next: currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null,
+  };
 }
