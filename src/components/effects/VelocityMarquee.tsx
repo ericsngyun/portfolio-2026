@@ -18,6 +18,8 @@ interface VelocityMarqueeProps {
     className?: string;
     /** Direction of marquee movement */
     direction?: "left" | "right";
+    /** Stroke width for outlined text */
+    strokeWidth?: number;
 }
 
 /**
@@ -26,12 +28,13 @@ interface VelocityMarqueeProps {
  * Editorial light-mode styling with Syne font
  */
 export function VelocityMarquee({
-    text = "DESIGN ENGINEER",
+    text = "DESIGN & ENGINEERING",
     baseSpeed = 30,
     maxSpeedMultiplier = 6,
     maxSkew = 10,
     className,
     direction = "left",
+    strokeWidth = 1.5,
 }: VelocityMarqueeProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const marqueeRef = useRef<HTMLDivElement>(null);
@@ -146,8 +149,8 @@ export function VelocityMarquee({
         return (
             <div className={cn("overflow-hidden", className)}>
                 <div
-                    className="whitespace-nowrap font-[family-name:var(--font-syne)] font-extrabold tracking-[-0.04em] text-[var(--color-border)]"
-                    style={{ fontSize: "clamp(5rem, 18vw, 16rem)" }}
+                    className="whitespace-nowrap font-[family-name:var(--font-syne)] font-extrabold tracking-[-0.05em] text-[var(--color-border)]"
+                    style={{ fontSize: "clamp(4rem, 15vw, 14rem)" }}
                 >
                     {text}
                 </div>
@@ -155,12 +158,18 @@ export function VelocityMarquee({
         );
     }
 
-    // Create repeated text for seamless loop
+    // Create repeated text for seamless loop with separator
     const repeatedText = Array(4)
         .fill(null)
         .map((_, i) => (
-            <span key={i} className="inline-block px-[0.2em]">
-                {text}
+            <span key={i} className="inline-flex items-baseline">
+                <span className="px-[0.15em]">{text}</span>
+                <span
+                    className="mx-[0.3em] text-[0.5em] opacity-30"
+                    style={{ fontWeight: 400 }}
+                >
+                    ✦
+                </span>
             </span>
         ));
 
@@ -173,12 +182,12 @@ export function VelocityMarquee({
                 ref={marqueeRef}
                 className="inline-flex whitespace-nowrap will-change-transform font-[family-name:var(--font-syne)]"
                 style={{
-                    fontSize: "clamp(5rem, 18vw, 16rem)",
+                    fontSize: "clamp(4rem, 15vw, 14rem)",
                     fontWeight: 800,
-                    letterSpacing: "-0.04em",
+                    letterSpacing: "-0.05em",
                     lineHeight: 0.85,
                     color: "transparent",
-                    WebkitTextStroke: "1px var(--color-border-strong)",
+                    WebkitTextStroke: `${strokeWidth}px var(--color-border-strong)`,
                 }}
             >
                 {repeatedText}
@@ -192,7 +201,7 @@ export function VelocityMarquee({
  */
 export function DualVelocityMarquee({
     topText = "DESIGN",
-    bottomText = "ENGINEER",
+    bottomText = "ENGINEERING",
     className,
 }: {
     topText?: string;
