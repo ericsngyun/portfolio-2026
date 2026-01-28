@@ -35,10 +35,10 @@ export default function ProjectsPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="mb-16"
+          className="mb-12"
         >
           <p className="text-label mb-3">All Work</p>
-          <h1 className="text-[clamp(2.5rem,8vw,4rem)] font-[family-name:var(--font-syne)] font-bold text-[var(--color-text-primary)] tracking-[-0.04em] leading-[0.95]">
+          <h1 className="text-[clamp(2rem,6vw,4rem)] font-[family-name:var(--font-syne)] font-bold text-[var(--color-text-primary)] tracking-[-0.04em] leading-[0.95]">
             Projects
           </h1>
         </motion.div>
@@ -58,32 +58,46 @@ export default function ProjectsPage() {
             >
               <Link
                 href={`/projects/${project.slug}`}
-                className="group block p-6 border border-[var(--color-border)] hover:border-[var(--color-border-strong)] hover:bg-[var(--color-bg-elevated)] transition-all duration-300"
+                className="group block p-5 sm:p-6 border border-[var(--color-border)] hover:border-[var(--color-border-strong)] hover:bg-[var(--color-bg-elevated)] transition-all duration-300"
               >
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-4 mb-2">
-                      <span className="text-xs text-[var(--color-text-muted)] font-medium">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-                      <h2 className="text-lg font-[family-name:var(--font-syne)] font-semibold text-[var(--color-text-primary)] group-hover:opacity-70 transition-opacity">
-                        {project.name}
-                      </h2>
-                    </div>
-                    <p className="text-sm text-[var(--color-text-secondary)] ml-8">
-                      {project.tagline}
-                    </p>
+                {/* Top Row: Name, Role, Year */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4 mb-3">
+                  <h2 className="text-lg sm:text-xl font-[family-name:var(--font-syne)] font-semibold text-[var(--color-text-primary)] group-hover:opacity-70 transition-opacity">
+                    {project.name}
+                  </h2>
+                  <div className="flex items-center gap-3 text-xs text-[var(--color-text-muted)]">
+                    <span>{project.role}</span>
+                    <span>·</span>
+                    <span>{project.year}</span>
                   </div>
+                </div>
 
-                  <div className="flex items-center gap-4 ml-8 sm:ml-0">
-                    <span className="text-xs text-[var(--color-text-muted)]">
-                      {project.year}
-                    </span>
-                    <ArrowUpRight
-                      className="size-4 text-[var(--color-text-muted)] group-hover:text-[var(--color-text-primary)] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300"
-                      strokeWidth={1.5}
-                    />
+                {/* Tagline */}
+                <p className="text-sm text-[var(--color-text-secondary)] mb-4 leading-relaxed">
+                  {project.tagline}
+                </p>
+
+                {/* Bottom Row: Tech Stack & Arrow */}
+                <div className="flex items-end justify-between gap-4">
+                  <div className="flex flex-wrap gap-2">
+                    {project.techStack.slice(0, 4).map((tech) => (
+                      <span
+                        key={tech}
+                        className="text-xs text-[var(--color-text-muted)] px-2 py-1 bg-[var(--color-bg-muted)]"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                    {project.techStack.length > 4 && (
+                      <span className="text-xs text-[var(--color-text-muted)] px-2 py-1">
+                        +{project.techStack.length - 4}
+                      </span>
+                    )}
                   </div>
+                  <ArrowUpRight
+                    className="size-5 text-[var(--color-text-muted)] group-hover:text-[var(--color-text-primary)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300 shrink-0"
+                    strokeWidth={1.5}
+                  />
                 </div>
               </Link>
             </motion.div>

@@ -393,89 +393,12 @@ body {
 }
 
 /* ============================================
-   FULL-PAGE SCROLL SYSTEM
-   ============================================ */
-
-.full-page-container {
-  height: 100dvh;
-  overflow-y: auto;
-  overflow-x: hidden;
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-}
-
-/* Override body overflow for inner pages */
-body:has(.project-page-layout) {
-  overflow: auto;
-  height: auto;
-}
-
-.project-page-layout {
-  min-height: 100dvh;
-  overflow: auto;
-}
-
-.page-section {
-  height: 100dvh;
-  min-height: 100dvh;
-  width: 100%;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
-.page-section > * {
-  flex: 1;
-  min-height: 0;
-}
-
-/* Prevent scroll during transitions */
-.full-page-container.is-scrolling {
-  overflow: hidden;
-}
-
-/* Section transition overlays */
-.section-transition-overlay {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: calc(var(--z-fixed) - 1);
-}
-
-/* ============================================
    RESPONSIVE
    ============================================ */
 
 @media (max-width: 640px) {
   :root {
     --space-section: 5rem;
-  }
-
-  /* Mobile: disable snap and allow natural scroll */
-  .full-page-container {
-    scroll-snap-type: none;
-    height: auto;
-    overflow-y: visible;
-  }
-
-  .page-section {
-    height: auto;
-    min-height: auto;
-    scroll-snap-align: none;
-    scroll-snap-stop: normal;
-    padding-bottom: 4rem;
-  }
-
-  .page-section > * {
-    flex: none;
-  }
-
-  /* Add visual separation between sections on mobile */
-  .page-section + .page-section {
-    border-top: 1px solid var(--color-border);
-    padding-top: 3rem;
   }
 }
 

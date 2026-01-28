@@ -46,67 +46,53 @@ const values = [
 ];
 
 export function About() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
   const prefersReducedMotion = useReducedMotion();
-  const isInView = useInView(containerRef, { once: true, margin: "-50px" });
+  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
   return (
-    <div
+    <section
       ref={containerRef}
-      className="h-full flex flex-col bg-[var(--color-bg-elevated)] py-[clamp(3rem,5vh,5rem)]"
+      id="about"
+      className="py-[clamp(6rem,15vh,12rem)] bg-[var(--color-bg-elevated)]"
     >
-      <div className="container-wide flex-1 flex flex-col">
+      <div className="container-wide">
         {/* Section Header */}
-        <div className="mb-[clamp(2rem,4vh,3rem)]">
+        <div className="mb-[clamp(3rem,8vw,5rem)]">
           <RevealOnScroll>
-            <span className="text-label mb-2 block">About</span>
+            <span className="text-label mb-4 block">About</span>
           </RevealOnScroll>
 
           <RevealOnScroll delay={0.1}>
-            <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-[family-name:var(--font-syne)] font-bold text-[var(--color-text-primary)] max-w-2xl tracking-[-0.03em] leading-tight">
+            <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-[family-name:var(--font-syne)] font-bold text-[var(--color-text-primary)] max-w-3xl tracking-[-0.03em] leading-tight">
               Building products that matter, with code that lasts
             </h2>
           </RevealOnScroll>
         </div>
 
         {/* Main Content Grid */}
-        <div className="flex-1 grid lg:grid-cols-12 gap-6 lg:gap-12">
-          {/* Left Column - Brief & Approach */}
-          <div className="lg:col-span-5 flex flex-col gap-6">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-20">
+          {/* Left Column - Bio & Approach */}
+          <div className="lg:col-span-5 space-y-12">
             {/* Brief intro */}
             <RevealOnScroll delay={0.2}>
-              <div className="p-5 border border-[var(--color-border)] bg-[var(--color-bg)]">
-                <div className="flex items-center gap-4 mb-4">
-                  {/* Initial */}
-                  <span className="text-4xl font-[family-name:var(--font-syne)] font-extrabold text-[var(--color-border-strong)]">
-                    E
-                  </span>
-                  <div>
-                    <p className="text-sm font-medium text-[var(--color-text-primary)]">
-                      Eric Yun
-                    </p>
-                    <p className="text-xs text-[var(--color-text-muted)]">
-                      Full-Stack Engineer
-                    </p>
-                  </div>
-                </div>
-                <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
+              <div className="prose prose-lg">
+                <p className="text-[var(--color-text-secondary)] leading-relaxed">
                   Based in Los Angeles, I specialize in building performant web
                   applications with a focus on clean architecture and
-                  exceptional user experience.
+                  exceptional user experience. I care deeply about the details
+                  that make software feel polished and professional.
                 </p>
               </div>
             </RevealOnScroll>
 
-            {/* Values - Compact */}
-            <div className="flex-1">
+            {/* Values */}
+            <div>
               <RevealOnScroll delay={0.3}>
-                <h3 className="text-xs font-medium text-[var(--color-text-muted)] uppercase tracking-wide mb-4">
-                  Approach
-                </h3>
+                <h3 className="text-label mb-6">Approach</h3>
               </RevealOnScroll>
 
-              <div className="space-y-3">
+              <div className="space-y-6">
                 {values.map((value, index) => (
                   <motion.div
                     key={value.title}
@@ -115,23 +101,17 @@ export function About() {
                       isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
                     }
                     transition={{
-                      duration: 0.5,
+                      duration: 0.6,
                       delay: prefersReducedMotion ? 0 : 0.4 + index * 0.1,
                       ease: [0.25, 0.1, 0.25, 1] as const,
                     }}
-                    className="flex gap-3"
                   >
-                    <span className="text-xs text-[var(--color-text-muted)] mt-0.5">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <div>
-                      <h4 className="text-sm font-medium text-[var(--color-text-primary)] mb-1">
-                        {value.title}
-                      </h4>
-                      <p className="text-xs text-[var(--color-text-secondary)] leading-relaxed">
-                        {value.description}
-                      </p>
-                    </div>
+                    <h4 className="text-sm font-medium text-[var(--color-text-primary)] mb-1">
+                      {value.title}
+                    </h4>
+                    <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
+                      {value.description}
+                    </p>
                   </motion.div>
                 ))}
               </div>
@@ -141,24 +121,22 @@ export function About() {
           {/* Right Column - Experience Timeline */}
           <div className="lg:col-span-7">
             <RevealOnScroll>
-              <h3 className="text-xs font-medium text-[var(--color-text-muted)] uppercase tracking-wide mb-4">
-                Experience
-              </h3>
+              <h3 className="text-label mb-8">Experience</h3>
             </RevealOnScroll>
 
             <StaggeredSection staggerDelay={0.1}>
               <div className="space-y-0">
                 {experiences.map((exp, index) => (
                   <AnimatedItem key={index}>
-                    <div className="group grid sm:grid-cols-[140px_1fr] gap-2 sm:gap-6 py-4 border-b border-[var(--color-border)] last:border-b-0">
-                      <span className="text-xs text-[var(--color-text-muted)]">
+                    <div className="group grid sm:grid-cols-[160px_1fr] gap-4 sm:gap-8 py-6 border-b border-[var(--color-border)] last:border-b-0">
+                      <span className="text-sm text-[var(--color-text-muted)]">
                         {exp.period}
                       </span>
                       <div>
-                        <h4 className="text-sm font-medium text-[var(--color-text-primary)] group-hover:opacity-60 transition-opacity">
+                        <h4 className="text-base font-medium text-[var(--color-text-primary)] group-hover:opacity-60 transition-opacity">
                           {exp.title}
                         </h4>
-                        <p className="text-xs text-[var(--color-text-secondary)] mt-1">
+                        <p className="text-sm text-[var(--color-text-secondary)] mt-1">
                           {exp.description}
                         </p>
                       </div>
@@ -168,30 +146,30 @@ export function About() {
               </div>
             </StaggeredSection>
 
-            {/* Stats/Metrics - Compact */}
+            {/* Stats */}
             <RevealOnScroll delay={0.5}>
-              <div className="grid grid-cols-3 gap-4 mt-6 pt-6 border-t border-[var(--color-border)]">
+              <div className="grid grid-cols-3 gap-8 mt-12 pt-8 border-t border-[var(--color-border)]">
                 <div>
-                  <p className="text-2xl font-[family-name:var(--font-syne)] font-bold text-[var(--color-text-primary)]">
+                  <p className="text-3xl font-[family-name:var(--font-syne)] font-bold text-[var(--color-text-primary)]">
                     5+
                   </p>
-                  <p className="text-xs text-[var(--color-text-muted)]">
+                  <p className="text-sm text-[var(--color-text-muted)] mt-1">
                     Years Experience
                   </p>
                 </div>
                 <div>
-                  <p className="text-2xl font-[family-name:var(--font-syne)] font-bold text-[var(--color-text-primary)]">
+                  <p className="text-3xl font-[family-name:var(--font-syne)] font-bold text-[var(--color-text-primary)]">
                     20+
                   </p>
-                  <p className="text-xs text-[var(--color-text-muted)]">
+                  <p className="text-sm text-[var(--color-text-muted)] mt-1">
                     Projects Completed
                   </p>
                 </div>
                 <div>
-                  <p className="text-2xl font-[family-name:var(--font-syne)] font-bold text-[var(--color-text-primary)]">
+                  <p className="text-3xl font-[family-name:var(--font-syne)] font-bold text-[var(--color-text-primary)]">
                     10+
                   </p>
-                  <p className="text-xs text-[var(--color-text-muted)]">
+                  <p className="text-sm text-[var(--color-text-muted)] mt-1">
                     Happy Clients
                   </p>
                 </div>
@@ -200,6 +178,6 @@ export function About() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

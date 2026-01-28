@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Syne, Instrument_Sans } from "next/font/google";
+import { Header } from "@/components/layout/Header";
+import { SmoothScrollProvider } from "@/components/layout/SmoothScrollProvider";
 import "./globals.css";
 
 const syne = Syne({
@@ -35,18 +37,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${syne.variable} ${instrumentSans.variable}`}>
-      <body className="h-dvh overflow-hidden bg-[var(--color-bg)] font-[family-name:var(--font-instrument)] text-[var(--color-text-primary)] antialiased">
-        {/* Noise overlay for paper texture */}
-        <div className="noise-overlay" aria-hidden="true" />
+      <body className="min-h-dvh bg-[var(--color-bg)] font-[family-name:var(--font-instrument)] text-[var(--color-text-primary)] antialiased">
+        <SmoothScrollProvider>
+          {/* Noise overlay for paper texture */}
+          <div className="noise-overlay" aria-hidden="true" />
 
-        {/* Skip to content link for accessibility */}
-        <a href="#main-content" className="skip-to-content">
-          Skip to content
-        </a>
+          {/* Skip to content link for accessibility */}
+          <a href="#main-content" className="skip-to-content">
+            Skip to content
+          </a>
 
-        <main id="main-content" className="h-full">
-          {children}
-        </main>
+          <Header />
+          <main id="main-content">{children}</main>
+        </SmoothScrollProvider>
       </body>
     </html>
   );
