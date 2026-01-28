@@ -53,7 +53,7 @@ export function About() {
   return (
     <div
       ref={containerRef}
-      className="h-full flex flex-col bg-[var(--color-bg-elevated)] py-[clamp(2rem,5vh,5rem)]"
+      className="h-full flex flex-col bg-[var(--color-bg-elevated)] py-[clamp(3rem,5vh,5rem)]"
     >
       <div className="container-wide flex-1 flex flex-col">
         {/* Section Header */}

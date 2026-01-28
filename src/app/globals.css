@@ -465,10 +465,17 @@ body:has(.project-page-layout) {
     min-height: auto;
     scroll-snap-align: none;
     scroll-snap-stop: normal;
+    padding-bottom: 4rem;
   }
 
   .page-section > * {
     flex: none;
+  }
+
+  /* Add visual separation between sections on mobile */
+  .page-section + .page-section {
+    border-top: 1px solid var(--color-border);
+    padding-top: 3rem;
   }
 }
 
