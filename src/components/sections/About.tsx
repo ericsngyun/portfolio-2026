@@ -53,7 +53,7 @@ export function About() {
   return (
     <div
       ref={containerRef}
-      className="h-full flex flex-col bg-[var(--color-bg-elevated)] py-[clamp(3rem,6vh,5rem)]"
+      className="h-full flex flex-col bg-[var(--color-bg-elevated)] py-[clamp(2rem,5vh,5rem)]"
     >
       <div className="container-wide flex-1 flex flex-col">
         {/* Section Header */}
@@ -117,7 +117,7 @@ export function About() {
                     transition={{
                       duration: 0.5,
                       delay: prefersReducedMotion ? 0 : 0.4 + index * 0.1,
-                      ease: [0.25, 0.1, 0.25, 1],
+                      ease: [0.25, 0.1, 0.25, 1] as const,
                     }}
                     className="flex gap-3"
                   >

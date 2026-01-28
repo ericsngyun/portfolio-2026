@@ -221,7 +221,7 @@ export function PageSection({
         scale: 1,
         transition: {
           duration: prefersReducedMotion ? 0 : 0.8,
-          ease: [0.25, 0.1, 0.25, 1],
+          ease: [0.25, 0.1, 0.25, 1] as const,
         },
       });
     }
@@ -285,7 +285,7 @@ export function SectionIndicator() {
               }}
               transition={{
                 duration: prefersReducedMotion ? 0 : 0.3,
-                ease: [0.25, 0.1, 0.25, 1],
+                ease: [0.25, 0.1, 0.25, 1] as const,
               }}
               className="rounded-full"
             />

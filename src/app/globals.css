@@ -453,14 +453,22 @@ body:has(.project-page-layout) {
     --space-section: 5rem;
   }
 
-  /* Mobile: disable snap for better UX */
+  /* Mobile: disable snap and allow natural scroll */
   .full-page-container {
     scroll-snap-type: none;
+    height: auto;
+    overflow-y: visible;
   }
 
   .page-section {
+    height: auto;
     min-height: auto;
     scroll-snap-align: none;
+    scroll-snap-stop: normal;
+  }
+
+  .page-section > * {
+    flex: none;
   }
 }
 

@@ -61,7 +61,7 @@ export function Hero() {
           transition={{
             duration: prefersReducedMotion ? 0 : 0.8,
             delay: prefersReducedMotion ? 0 : 0.2,
-            ease: [0.25, 0.1, 0.25, 1],
+            ease: [0.25, 0.1, 0.25, 1] as const,
           }}
           className="container-wide relative z-10"
         >
@@ -123,7 +123,7 @@ export function Hero() {
               transition={{
                 duration: 2,
                 repeat: Infinity,
-                ease: [0.45, 0, 0.55, 1],
+                ease: [0.45, 0, 0.55, 1] as const,
               }}
             >
               <ChevronDown className="size-5" strokeWidth={1.5} />

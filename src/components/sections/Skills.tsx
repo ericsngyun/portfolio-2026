@@ -45,7 +45,7 @@ export function Skills() {
   return (
     <div
       ref={containerRef}
-      className="h-full flex flex-col py-[clamp(3rem,6vh,5rem)]"
+      className="h-full flex flex-col py-[clamp(2rem,5vh,5rem)]"
     >
       <div className="container-wide flex-1 flex flex-col">
         {/* Section Header */}
@@ -80,7 +80,7 @@ export function Skills() {
               transition={{
                 duration: 0.5,
                 delay: prefersReducedMotion ? 0 : categoryIndex * 0.08,
-                ease: [0.25, 0.1, 0.25, 1],
+                ease: [0.25, 0.1, 0.25, 1] as const,
               }}
               className="p-4 lg:p-5 border border-[var(--color-border)] hover:border-[var(--color-border-strong)] transition-colors duration-300"
             >

@@ -17,7 +17,7 @@ export function Contact() {
   return (
     <div className="flex flex-col h-full">
       {/* Main Content - Centered */}
-      <div className="flex-1 flex flex-col justify-center py-[clamp(4rem,10vh,8rem)]">
+      <div className="flex-1 flex flex-col justify-center py-[clamp(2rem,8vh,8rem)]">
         <div className="container-wide">
           {/* Large CTA - The hero moment */}
           <div className="mb-16">
@@ -31,7 +31,7 @@ export function Contact() {
               viewport={{ once: true, margin: "-100px" }}
               transition={{
                 duration: prefersReducedMotion ? 0 : 0.8,
-                ease: [0.25, 0.1, 0.25, 1],
+                ease: [0.25, 0.1, 0.25, 1] as const,
               }}
             >
               <MagneticButton
@@ -73,7 +73,7 @@ export function Contact() {
                   transition={{
                     duration: prefersReducedMotion ? 0 : 0.5,
                     delay: prefersReducedMotion ? 0 : 0.4 + index * 0.1,
-                    ease: [0.25, 0.1, 0.25, 1],
+                    ease: [0.25, 0.1, 0.25, 1] as const,
                   }}
                   className="group flex items-center gap-3 px-6 py-4 border border-[var(--color-border)] hover:border-[var(--color-border-strong)] hover:bg-[var(--color-bg-elevated)] transition-all duration-300"
                 >
