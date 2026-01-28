@@ -28,7 +28,7 @@ export const projects: Project[] = [
     description:
       "A comprehensive tournament management ecosystem for trading card game stores. Features a React Native mobile app for players, a Next.js admin dashboard for organizers, and a NestJS API backend. Built to handle Swiss-system tournaments with professional-grade tiebreaker calculations.",
     role: "Full-Stack Engineer",
-    year: "2024",
+    year: "2025",
     timeline: "6 months",
     color: "#8B5CF6",
     challenge:
@@ -87,7 +87,7 @@ export const projects: Project[] = [
     description:
       "A desktop application that identifies trading cards in 111ms with 100% accuracy using computer vision and machine learning. Transforms manual pricing from 3-5 minutes per card to under 1 second. Includes a companion SaaS web platform for shop inventory management.",
     role: "Full-Stack Engineer & ML Engineer",
-    year: "2024",
+    year: "2025",
     timeline: "4 months",
     color: "#3B82F6",
     challenge:
@@ -203,7 +203,7 @@ export const projects: Project[] = [
     description:
       "A high-end marketing website for a Los Angeles hair artistry studio and education platform. Features advanced scroll-driven animations, 3D elements, and a custom design system emphasizing precision and craftsmanship.",
     role: "Frontend Engineer & Designer",
-    year: "2024",
+    year: "2025",
     timeline: "2 months",
     color: "#F97316",
     challenge:
@@ -262,7 +262,7 @@ export const projects: Project[] = [
     description:
       "A tournament tracking application for the Riftbound TCG community. Players can record match results round by round, track performance metrics, analyze win rates and matchup trends, and share tournament results via image export.",
     role: "Full-Stack Engineer",
-    year: "2024",
+    year: "2025",
     timeline: "5 weeks",
     color: "#EC4899",
     challenge:
