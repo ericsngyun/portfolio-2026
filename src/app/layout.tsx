@@ -19,13 +19,13 @@ const instrumentSans = Instrument_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Eric Yun — Design Engineer",
+  title: "eric yun - materialize ideas",
   description:
-    "Portfolio of Eric Yun — Design Engineer crafting tournament platforms, AI-powered tools, and premium digital experiences.",
+    "Portfolio of Eric Yun — Product Engineer building things for the internet.",
   openGraph: {
-    title: "Eric Yun — Design Engineer",
+    title: "eric yun - materialize ideas",
     description:
-      "Portfolio of Eric Yun — Design Engineer crafting tournament platforms, AI-powered tools, and premium digital experiences.",
+      "Portfolio of Eric Yun — Product Engineer building things for the internet.",
     type: "website",
   },
 };
