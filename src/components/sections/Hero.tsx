@@ -65,7 +65,7 @@ export function Hero() {
       >
         {/* Eyebrow label */}
         <RevealOnScroll delay={0}>
-          <p className="text-label mb-6">Portfolio 2025</p>
+          <p className="text-label mb-6">Portfolio 2026</p>
         </RevealOnScroll>
 
         {/* Name - Large editorial treatment */}
@@ -82,8 +82,7 @@ export function Hero() {
         {/* Intro text with refined typography */}
         <RevealOnScroll delay={0.35}>
           <p className="text-[clamp(1.125rem,2vw,1.375rem)] text-[var(--color-text-secondary)] leading-[1.6] max-w-lg tracking-[-0.01em]">
-            Crafting tournament platforms, AI-powered tools, and premium digital
-            experiences.
+            I build things for the internet.
           </p>
         </RevealOnScroll>
 
