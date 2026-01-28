@@ -1,8 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/utils";
 import { useScrollDirection } from "@/hooks/useSmoothScroll";
@@ -16,7 +14,6 @@ const navLinks = [
 ];
 
 export function Header() {
-  const pathname = usePathname();
   const { direction, isAtTop } = useScrollDirection();
   const prefersReducedMotion = useReducedMotion();
   const [isVisible, setIsVisible] = useState(true);
@@ -62,61 +59,19 @@ export function Header() {
             </span>
           </MagneticLink>
 
-          {/* Navigation - Minimal, no prefixes */}
+          {/* Navigation - Minimal */}
           <ul className="flex items-center gap-8">
-            {navLinks.map((link) => {
-              const isActive =
-                pathname === link.href ||
-                (link.href.includes("#") &&
-                  pathname === "/" &&
-                  link.href.startsWith("/#"));
-
-              return (
-                <li key={link.href}>
-                  <MagneticLink
-                    href={link.href}
-                    distance={3}
-                    className={cn(
-                      "relative text-sm font-medium transition-colors duration-200",
-                      isActive
-                        ? "text-[var(--color-text-primary)]"
-                        : "text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
-                    )}
-                  >
-                    {link.label}
-                    {isActive && (
-                      <motion.span
-                        layoutId="nav-indicator"
-                        className="absolute -bottom-1 left-0 right-0 h-px bg-[var(--color-text-primary)]"
-                        transition={{
-                          type: "spring",
-                          stiffness: 300,
-                          damping: 30,
-                        }}
-                      />
-                    )}
-                  </MagneticLink>
-                </li>
-              );
-            })}
-
-            {/* Resume link */}
-            <li>
-              <MagneticLink
-                href="/resume.pdf"
-                target="_blank"
-                distance={4}
-                className={cn(
-                  "relative px-4 py-2 text-sm font-medium",
-                  "border border-[var(--color-border-strong)]",
-                  "text-[var(--color-text-primary)]",
-                  "transition-all duration-300",
-                  "hover:bg-[var(--color-text-primary)] hover:text-[var(--color-bg)]"
-                )}
-              >
-                Resume
-              </MagneticLink>
-            </li>
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <MagneticLink
+                  href={link.href}
+                  distance={3}
+                  className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors duration-200"
+                >
+                  {link.label}
+                </MagneticLink>
+              </li>
+            ))}
           </ul>
         </nav>
       </motion.header>
