@@ -1,9 +1,12 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform, useInView } from "motion/react";
-import { SplitText } from "@/components/ui/SplitText";
-import { RevealOnScroll, StaggeredSection, AnimatedItem } from "@/components/ui/AnimatedSection";
+import { motion, useInView } from "motion/react";
+import {
+  RevealOnScroll,
+  StaggeredSection,
+  AnimatedItem,
+} from "@/components/ui/AnimatedSection";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const experiences = [
@@ -33,137 +36,170 @@ const values = [
   {
     title: "Full-Stack Thinking",
     description:
-      "Understanding the entire system—from database to UI—leads to better architecture and fewer surprises.",
+      "Understanding the entire system—from database to UI—leads to better architecture.",
   },
   {
     title: "Continuous Learning",
     description:
-      "Technology evolves rapidly. I stay curious and embrace new tools that genuinely improve outcomes.",
+      "Technology evolves rapidly. I stay curious and embrace new tools that improve outcomes.",
   },
 ];
 
 export function About() {
-  const containerRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
-
-  // Parallax effect for the image
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-
-  const imageY = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const isInView = useInView(containerRef, { once: true, margin: "-50px" });
 
   return (
-    <section
+    <div
       ref={containerRef}
-      id="about"
-      className="section-padding bg-[var(--color-bg-elevated)]"
+      className="h-full flex flex-col bg-[var(--color-bg-elevated)] py-[clamp(3rem,6vh,5rem)]"
     >
-      <div className="container-wide">
+      <div className="container-wide flex-1 flex flex-col">
         {/* Section Header */}
-        <div className="mb-20">
+        <div className="mb-[clamp(2rem,4vh,3rem)]">
           <RevealOnScroll>
-            <span className="text-label mb-4 block">About</span>
+            <span className="text-label mb-2 block">About</span>
           </RevealOnScroll>
 
           <RevealOnScroll delay={0.1}>
-            <h2 className="text-display font-[family-name:var(--font-syne)] font-bold text-[var(--color-text-primary)] max-w-3xl tracking-[-0.03em]">
+            <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-[family-name:var(--font-syne)] font-bold text-[var(--color-text-primary)] max-w-2xl tracking-[-0.03em] leading-tight">
               Building products that matter, with code that lasts
             </h2>
           </RevealOnScroll>
         </div>
 
         {/* Main Content Grid */}
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-20">
-          {/* Left Column - Image & Brief */}
-          <div className="lg:col-span-5">
-            {/* Image with parallax - editorial treatment */}
-            <div className="relative aspect-[4/5] overflow-hidden bg-[var(--color-bg-muted)] mb-8">
-              <motion.div
-                style={{ y: prefersReducedMotion ? 0 : imageY }}
-                className="absolute inset-0"
-              >
-                {/* Placeholder - editorial initial treatment */}
-                <div className="w-full h-[120%] flex items-center justify-center bg-[var(--color-bg-muted)]">
-                  <span className="text-[12rem] font-[family-name:var(--font-syne)] font-extrabold text-[var(--color-border)] select-none">
-                    E
-                  </span>
-                </div>
-              </motion.div>
-            </div>
-
+        <div className="flex-1 grid lg:grid-cols-12 gap-6 lg:gap-12">
+          {/* Left Column - Brief & Approach */}
+          <div className="lg:col-span-5 flex flex-col gap-6">
             {/* Brief intro */}
             <RevealOnScroll delay={0.2}>
-              <p className="text-body-lg text-[var(--color-text-secondary)] leading-relaxed">
-                I'm Eric, a full-stack engineer based in Los Angeles. I specialize
-                in building performant web applications with a focus on clean
-                architecture and exceptional user experience.
-              </p>
-            </RevealOnScroll>
-          </div>
-
-          {/* Right Column - Experience & Values */}
-          <div className="lg:col-span-7 space-y-16">
-            {/* Experience Timeline */}
-            <div>
-              <RevealOnScroll>
-                <h3 className="text-h3 font-[family-name:var(--font-syne)] font-semibold text-[var(--color-text-primary)] mb-8">
-                  Experience
-                </h3>
-              </RevealOnScroll>
-
-              <StaggeredSection staggerDelay={0.1}>
-                <div className="space-y-0">
-                  {experiences.map((exp, index) => (
-                    <AnimatedItem key={index}>
-                      <div className="group grid sm:grid-cols-[140px_1fr] gap-2 sm:gap-8 py-5 border-b border-[var(--color-border)]">
-                        <span className="text-sm text-[var(--color-text-muted)]">
-                          {exp.period}
-                        </span>
-                        <div>
-                          <h4 className="text-body font-medium text-[var(--color-text-primary)] group-hover:opacity-60 transition-opacity">
-                            {exp.title}
-                          </h4>
-                          <p className="text-sm text-[var(--color-text-secondary)] mt-1">
-                            {exp.description}
-                          </p>
-                        </div>
-                      </div>
-                    </AnimatedItem>
-                  ))}
+              <div className="p-5 border border-[var(--color-border)] bg-[var(--color-bg)]">
+                <div className="flex items-center gap-4 mb-4">
+                  {/* Initial */}
+                  <span className="text-4xl font-[family-name:var(--font-syne)] font-extrabold text-[var(--color-border-strong)]">
+                    E
+                  </span>
+                  <div>
+                    <p className="text-sm font-medium text-[var(--color-text-primary)]">
+                      Eric Yun
+                    </p>
+                    <p className="text-xs text-[var(--color-text-muted)]">
+                      Full-Stack Engineer
+                    </p>
+                  </div>
                 </div>
-              </StaggeredSection>
-            </div>
+                <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
+                  Based in Los Angeles, I specialize in building performant web
+                  applications with a focus on clean architecture and
+                  exceptional user experience.
+                </p>
+              </div>
+            </RevealOnScroll>
 
-            {/* Values */}
-            <div>
-              <RevealOnScroll>
-                <h3 className="text-h3 font-[family-name:var(--font-syne)] font-semibold text-[var(--color-text-primary)] mb-8">
+            {/* Values - Compact */}
+            <div className="flex-1">
+              <RevealOnScroll delay={0.3}>
+                <h3 className="text-xs font-medium text-[var(--color-text-muted)] uppercase tracking-wide mb-4">
                   Approach
                 </h3>
               </RevealOnScroll>
 
-              <StaggeredSection staggerDelay={0.15} delay={0.2}>
-                <div className="grid sm:grid-cols-2 gap-8">
-                  {values.map((value, index) => (
-                    <AnimatedItem key={index}>
-                      <div className="space-y-3">
-                        <h4 className="text-body font-medium text-[var(--color-text-primary)]">
-                          {value.title}
+              <div className="space-y-3">
+                {values.map((value, index) => (
+                  <motion.div
+                    key={value.title}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={
+                      isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
+                    }
+                    transition={{
+                      duration: 0.5,
+                      delay: prefersReducedMotion ? 0 : 0.4 + index * 0.1,
+                      ease: [0.25, 0.1, 0.25, 1],
+                    }}
+                    className="flex gap-3"
+                  >
+                    <span className="text-xs text-[var(--color-text-muted)] mt-0.5">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <div>
+                      <h4 className="text-sm font-medium text-[var(--color-text-primary)] mb-1">
+                        {value.title}
+                      </h4>
+                      <p className="text-xs text-[var(--color-text-secondary)] leading-relaxed">
+                        {value.description}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column - Experience Timeline */}
+          <div className="lg:col-span-7">
+            <RevealOnScroll>
+              <h3 className="text-xs font-medium text-[var(--color-text-muted)] uppercase tracking-wide mb-4">
+                Experience
+              </h3>
+            </RevealOnScroll>
+
+            <StaggeredSection staggerDelay={0.1}>
+              <div className="space-y-0">
+                {experiences.map((exp, index) => (
+                  <AnimatedItem key={index}>
+                    <div className="group grid sm:grid-cols-[140px_1fr] gap-2 sm:gap-6 py-4 border-b border-[var(--color-border)] last:border-b-0">
+                      <span className="text-xs text-[var(--color-text-muted)]">
+                        {exp.period}
+                      </span>
+                      <div>
+                        <h4 className="text-sm font-medium text-[var(--color-text-primary)] group-hover:opacity-60 transition-opacity">
+                          {exp.title}
                         </h4>
-                        <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
-                          {value.description}
+                        <p className="text-xs text-[var(--color-text-secondary)] mt-1">
+                          {exp.description}
                         </p>
                       </div>
-                    </AnimatedItem>
-                  ))}
+                    </div>
+                  </AnimatedItem>
+                ))}
+              </div>
+            </StaggeredSection>
+
+            {/* Stats/Metrics - Compact */}
+            <RevealOnScroll delay={0.5}>
+              <div className="grid grid-cols-3 gap-4 mt-6 pt-6 border-t border-[var(--color-border)]">
+                <div>
+                  <p className="text-2xl font-[family-name:var(--font-syne)] font-bold text-[var(--color-text-primary)]">
+                    5+
+                  </p>
+                  <p className="text-xs text-[var(--color-text-muted)]">
+                    Years Experience
+                  </p>
                 </div>
-              </StaggeredSection>
-            </div>
+                <div>
+                  <p className="text-2xl font-[family-name:var(--font-syne)] font-bold text-[var(--color-text-primary)]">
+                    20+
+                  </p>
+                  <p className="text-xs text-[var(--color-text-muted)]">
+                    Projects Completed
+                  </p>
+                </div>
+                <div>
+                  <p className="text-2xl font-[family-name:var(--font-syne)] font-bold text-[var(--color-text-primary)]">
+                    10+
+                  </p>
+                  <p className="text-xs text-[var(--color-text-muted)]">
+                    Happy Clients
+                  </p>
+                </div>
+              </div>
+            </RevealOnScroll>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

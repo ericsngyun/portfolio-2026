@@ -1,14 +1,13 @@
 "use client";
 
-import { Github, Linkedin, Mail, ArrowUpRight } from "lucide-react";
+import { Github, Mail, ArrowUpRight } from "lucide-react";
 import { motion } from "motion/react";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { RevealOnScroll } from "@/components/ui/AnimatedSection";
 
 const socialLinks = [
   { href: "https://github.com/ericyun", label: "GitHub", icon: Github },
-  { href: "https://linkedin.com/in/ericyun", label: "LinkedIn", icon: Linkedin },
-  { href: "mailto:contact@ericyun.dev", label: "Email", icon: Mail },
+  { href: "mailto:yunseric@gmail.com", label: "Email", icon: Mail },
 ];
 
 export function Footer() {
@@ -31,7 +30,7 @@ export function Footer() {
             >
               <MagneticButton
                 as="a"
-                href="mailto:contact@ericyun.dev"
+                href="mailto:yunseric@gmail.com"
                 distance={20}
                 className="group inline-block"
               >
@@ -45,10 +44,10 @@ export function Footer() {
             {/* Email below */}
             <RevealOnScroll delay={0.2}>
               <a
-                href="mailto:contact@ericyun.dev"
+                href="mailto:yunseric@gmail.com"
                 className="inline-block mt-6 text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors duration-300 tracking-[-0.01em]"
               >
-                contact@ericyun.dev
+                yunseric@gmail.com
               </a>
             </RevealOnScroll>
           </div>

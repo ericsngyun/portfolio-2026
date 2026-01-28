@@ -4,7 +4,6 @@ import { useRef } from "react";
 import { motion, useInView } from "motion/react";
 import { RevealOnScroll } from "@/components/ui/AnimatedSection";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { cn } from "@/lib/utils";
 
 interface SkillCategory {
   name: string;
@@ -14,94 +13,56 @@ interface SkillCategory {
 const skillCategories: SkillCategory[] = [
   {
     name: "Frontend",
-    skills: [
-      "React",
-      "Next.js",
-      "TypeScript",
-      "Tailwind CSS",
-      "Framer Motion",
-      "React Native",
-    ],
+    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
   },
   {
     name: "Backend",
-    skills: [
-      "Node.js",
-      "NestJS",
-      "tRPC",
-      "REST APIs",
-      "GraphQL",
-      "WebSockets",
-    ],
+    skills: ["Node.js", "NestJS", "tRPC", "REST APIs", "GraphQL"],
   },
   {
     name: "Data",
-    skills: [
-      "PostgreSQL",
-      "Prisma",
-      "Drizzle ORM",
-      "Redis",
-      "Supabase",
-    ],
+    skills: ["PostgreSQL", "Prisma", "Drizzle ORM", "Redis", "Supabase"],
   },
   {
     name: "DevOps",
-    skills: [
-      "Git",
-      "Docker",
-      "Vercel",
-      "AWS",
-      "CI/CD",
-    ],
+    skills: ["Git", "Docker", "Vercel", "AWS", "CI/CD"],
   },
   {
     name: "AI & ML",
-    skills: [
-      "OpenAI API",
-      "Anthropic API",
-      "Python",
-      "PyTorch",
-      "DINOv2",
-    ],
+    skills: ["OpenAI API", "Anthropic API", "Python", "PyTorch"],
   },
   {
     name: "Design",
-    skills: [
-      "Figma",
-      "GSAP",
-      "Three.js",
-      "UI/UX",
-      "Design Systems",
-    ],
+    skills: ["Figma", "GSAP", "Three.js", "UI/UX", "Design Systems"],
   },
 ];
 
 export function Skills() {
-  const containerRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
-  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
+  const isInView = useInView(containerRef, { once: true, margin: "-50px" });
 
   return (
-    <section
+    <div
       ref={containerRef}
-      className="section-padding"
+      className="h-full flex flex-col py-[clamp(3rem,6vh,5rem)]"
     >
-      <div className="container-wide">
+      <div className="container-wide flex-1 flex flex-col">
         {/* Section Header */}
-        <div className="mb-16 lg:mb-20">
+        <div className="mb-[clamp(2rem,4vh,3rem)]">
           <RevealOnScroll>
-            <span className="text-label mb-4 block">Capabilities</span>
+            <span className="text-label mb-2 block">Capabilities</span>
           </RevealOnScroll>
 
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-20">
+          <div className="grid lg:grid-cols-2 gap-4 lg:gap-12">
             <RevealOnScroll delay={0.1}>
-              <h2 className="text-display font-[family-name:var(--font-syne)] font-bold text-[var(--color-text-primary)] tracking-[-0.03em]">
+              <h2 className="text-[clamp(2rem,5vw,3rem)] font-[family-name:var(--font-syne)] font-bold text-[var(--color-text-primary)] tracking-[-0.03em]">
                 Tools & Technologies
               </h2>
             </RevealOnScroll>
 
             <RevealOnScroll delay={0.2}>
-              <p className="text-body-lg text-[var(--color-text-secondary)] leading-relaxed lg:pt-4">
+              <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed lg:pt-2">
                 I believe in choosing the right tool for the job. Here's my
                 current stack—though I'm always exploring new technologies.
               </p>
@@ -109,8 +70,8 @@ export function Skills() {
           </div>
         </div>
 
-        {/* Skills Grid - Clean, minimal */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 lg:gap-x-12 lg:gap-y-14">
+        {/* Skills Grid - 3x2 compact layout */}
+        <div className="flex-1 grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
           {skillCategories.map((category, categoryIndex) => (
             <motion.div
               key={category.name}
@@ -121,17 +82,17 @@ export function Skills() {
                 delay: prefersReducedMotion ? 0 : categoryIndex * 0.08,
                 ease: [0.25, 0.1, 0.25, 1],
               }}
-              className="space-y-4"
+              className="p-4 lg:p-5 border border-[var(--color-border)] hover:border-[var(--color-border-strong)] transition-colors duration-300"
             >
-              <h3 className="text-sm font-medium text-[var(--color-text-primary)]">
+              <h3 className="text-sm font-medium text-[var(--color-text-primary)] mb-3 pb-2 border-b border-[var(--color-border)]">
                 {category.name}
               </h3>
 
-              <ul className="space-y-2">
+              <ul className="space-y-1.5">
                 {category.skills.map((skill) => (
                   <li
                     key={skill}
-                    className="text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200 cursor-default"
+                    className="text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200 cursor-default"
                   >
                     {skill}
                   </li>
@@ -143,14 +104,14 @@ export function Skills() {
 
         {/* Additional note */}
         <RevealOnScroll delay={0.4}>
-          <div className="mt-20 pt-8 border-t border-[var(--color-border)]">
-            <p className="text-sm text-[var(--color-text-muted)] max-w-xl">
+          <div className="mt-4 lg:mt-6 pt-4 border-t border-[var(--color-border)]">
+            <p className="text-xs text-[var(--color-text-muted)] max-w-xl">
               Beyond technical skills, I value clear communication, thoughtful
               documentation, and collaborative problem-solving.
             </p>
           </div>
         </RevealOnScroll>
       </div>
-    </section>
+    </div>
   );
 }
