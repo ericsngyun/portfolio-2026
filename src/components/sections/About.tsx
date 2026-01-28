@@ -11,18 +11,18 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const experiences = [
   {
-    period: "2023 — Present",
-    title: "Full-Stack Engineer",
+    period: "2025 — Present",
+    title: "Product Engineer",
     description: "Building tournament platforms, AI tools, and SaaS products",
   },
   {
-    period: "2021 — 2023",
-    title: "Frontend Developer",
-    description: "Creating responsive interfaces and design systems",
+    period: "2021 — 2024",
+    title: "Software Developer",
+    description: "Creating full-stack applications and design systems",
   },
   {
     period: "2019 — 2021",
-    title: "Web Developer",
+    title: "Web Dev",
     description: "Developing marketing sites and e-commerce solutions",
   },
 ];
